@@ -3,21 +3,23 @@ h1. Understanding @subject@
 If you set the subject in rspec, or recognise that the subject is, you can write much more succint tests.
 
 For example:
-
-<ruby>
+<pre><code>
   describe MyModel do
     it "should have a thing" do
       model = MyModel.new
       model.thing.should_not be_nil
     end
   end
-</ruby>
+
+</code></pre>
 
 This could reconise subject, and refer to the attribute in question as follows:
-
-@describe MyModel do
+<pre><code>
+describe MyModel do
   its(:thing) { should_not be_nil }
-end@
+end
+
+</code></pre>
 
 because 'it' is a MyModel instance, rspec understands.
 
@@ -25,43 +27,55 @@ h2. What about the class behavior?
 
 You might want to test attributes of the class, not an instance, and knowing that you can use subject to explicitly refer to the 'subject under test' you might try:
 
-@describe MyModel do
+<pre><code>
+describe MyModel do
   describe "Class Methods" do
     it "should have a method :foo, returning :bar" do
       subject.class.foo.should == :bar
     end
   end
-end@
+end
+
+</code></pre>
 
 That's pretty helpful, but really in the Class Methods describe, that's not what you're testing.  In other words, the 'subject' changed (but we didn't tell RSpec that).
 
 We probably want to do that:
 
-@describe MyModel do
+<pre><code>
+describe MyModel do
   describe "Class Methods" do
     subject {subject.class}
     its(:foo) { should == :bar}
   end
-end@
+end
+
+</code></pre>
 
 Better?  Yes.  Here we're using the rspec subject syntax to explicitly define the subject.  The problem is, that if this describe was nested in somewhere when we have already changed 'subject' we might not get 'MyModel' as the subject, but something uninteneded.
 
 What we really want to do is refer to MyModel.  How about:
 
-@describe MyModel do
+<pre><code>
+describe MyModel do
   subject {MyModel}
   its(:foo) {should == :bar}
-end@
+end
+
+</code></pre>
 
 This does the job, but does RSpec provide something a little more 'dry'?  Why yes!  We want a way to refer to the top level described class:
 
-@describe MyModel do
+<pre><code>
+describe MyModel do
   #..
   #.. any describe/context nesting
   describe "The Class" do
     subject { described_class }
     its(:foo) { should == :bar }
   end
-end@
+end
+
+</code></pre>
 
 That's it for now..

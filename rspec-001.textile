@@ -4,14 +4,14 @@ If you set the subject in rspec, or recognise that the subject is, you can write
 
 For example:
 
-@describe MyModel do
-
-  it "should have a thing" do
-    model = MyModel.new
-    model.thing.should_not be_nil
+<ruby>
+  describe MyModel do
+    it "should have a thing" do
+      model = MyModel.new
+      model.thing.should_not be_nil
+    end
   end
-
-end@
+</ruby>
 
 This could reconise subject, and refer to the attribute in question as follows:
 

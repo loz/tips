@@ -1,0 +1,12 @@
+rspec, array like stuff:
+
+subject.things.length.should == 5
+use have..
+subject.things.should have(5).items
+even better.
+subject.should have(5).things
+singular
+subject.should have(1).thing
+so now can use:
+it {should have(1).thing}
+

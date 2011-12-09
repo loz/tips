@@ -1,1 +1,6 @@
-=This is my tips that I want to remember
+h1. This is my tips that I want to remember or pass on
+
+h2. Rspec Tips
+
+
+h2. Vim Tips
